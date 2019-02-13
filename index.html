@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Dish-Washing Simulator</title>
+</head>
+<body onload = "loadSave();">
+  <div id = "rowDiv" class = "row">
+    <div style = "display: none;" id = "skillsDiv" class = "col s4">
+
+      <div class = "section">
+
+        <h4 style = "text-align: center;">Skills</h4>
+
+      </div>
+
+      <div id = "generalWashSkillSection" class = "section">
+
+        <p style = "display: inline; width: 40%;" id = "generalWashLbl">General Washing Skill: 0</p>
+
+        <progress id = "generalWashProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each level reduces the wash cooldown by (approx) 10% , with a cap at level 50"></progress>
+
+        <div style = "display: none;" id = "genDryDiv">
+
+          <br />
+
+          <p style = "display: inline; width: 40%;" id = "generalDryLbl">General Drying Skill: 0</p>
+
+          <progress id = "generalDryProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each level reduces the dry cooldown by approx 10%, with a cap at level 58. Each level also has an increasing multiplier on your salary"></progress>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div style = "display: none;" id = "specialWashSkillSection" class = "section">
+
+        <p style = "display: inline; width: 40%;" id = "plateWashLbl">Plate Washing Skill: 0</p>
+        <progress id = "plateWashProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you wash has a 7/10 chance of being a plate. Each level in this skill increases your Salary by 0.5"></progress>
+
+        <br /> <br />
+
+        <p style = "display: inline; width: 40%;" id = "cutleryWashLbl">Cutlery Washing Skill: 0</p>
+        <progress id = "cutleryWashProgress" class = "tooltipped" style = "display: inline; width: 40%; float: right;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you wash has a 2/10 chance of being cutlery. Each level in this skill increases your Salary by 1"></progress>
+
+        <br /> <br />
+
+        <p style = "display: inline; width: 40%;" id = "potWashLbl">Pot Washing Skill: 0</p>
+        <progress id = "potWashProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you wash has a 1/10 chance of being a pot. Each level in this skill increases your Salary by 2"></progress>
+
+      </div>
+      <div class="divider"></div>
+
+    </div>
+
+    <div id = "washingDiv" class = "col s12">
+
+      <div class = "container">
+
+        <h5 id = "moneyLbl" style = "display: none" >Money: 0</h5> <!-- position: absolute; top: 1%; left: 50%; transform: translate(-50%, -50%); -->
+        <h6 id = "salaryLbl" class = "tooltipped" style = "display: none" data-position = "bottom" data-tooltip = "Salary is the amount you earn every time you wash 5 dishes - the number of dishes can be lowered">Salary: 1</h6> <!-- position: absolute; top: 5%; left: 50%; transform: translate(-50%, -50%); -->
+
+        <img id = "washImg" style = "position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 35%;" src = "Assets/plateImage.svg"></img>
+
+        <a id = "washBtn" style = "position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%);" class = "waves-effect waves-light btn">Wash</a>
+
+        <progress value = "1" max = "1" id = "washProg" style = "position: absolute; top:80%; left: 50%;  transform: translate(-50%, -50%);"></progress>
+
+        <div style = "display:none;" id="dryDiv">
+
+          <a id = "dryBtn" style = "position: absolute; top: 85%; left: 50%; transform: translate(-50%, -50%);" class = "waves-effect waves-light btn">Dry</a>
+
+          <progress value = "5" max = "5" id = "dryProg" style = "position: absolute; top:90%; left: 50%;  transform: translate(-50%, -50%);"></progress>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div style = "display: none;" id = "upgradesDiv" class = "col s3">
+
+      <div class = "section">
+
+        <h4 style = "text-align: center;">Upgrades</h4>
+
+      </div>
+
+      <div id = "upgradeSectionOne" class = "section">
+
+        <a id = "upgradeOneBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Start automatically washing every 5 s - costs 5" >Auto Wash - 5</a>
+
+      </div>
+      <div id = "dividerOne" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionTwo" class = "section">
+
+        <a id = "upgradeTwoBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 10" >Improved Auto Wash - 10</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerTwo" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionThree" class = "section">
+
+        <a id = "upgradeThreeBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn"  data-position = "left" data-tooltip = "Half the auto wash interval - costs 20" >Improved Auto Wash - 20</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerThree" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionFour" class = "section">
+
+        <a id = "upgradeFourBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Lower the number of dishes you have to wash to get your salary by 1 - costs 25" >Faster Salary - 25</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerFour" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionFive" class = "section">
+
+        <a id = "upgradeFiveBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 40" >Improved Auto Wash - 40</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerFive" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionSix" class = "section">
+
+        <a id = "upgradeSixBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Lower the number of dishes you have to wash to get your salary by 1 - costs 100" >Faster Salary - 100</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerSix" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionSeven" class = "section">
+
+        <a id = "upgradeSevenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 80" >Improved Auto Wash - 80</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerSeven" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionEight" class = "section">
+
+        <a id = "upgradeEightBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Lower the number of dishes you have to wash to get your salary by 1 - costs 400" >Faster Salary - 400</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerEight" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionNine" class = "section">
+
+        <a id = "upgradeNineBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 160" >Improved Auto Wash - 160</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerNine" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionTen" class = "section">
+
+        <a id = "upgradeTenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Lower the number of dishes you have to wash to get your salary by 1 - costs 1600" >Faster Salary - 1600</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerTen" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionEleven" class = "section">
+
+        <a id = "upgradeElevenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 500" >Improved Auto Wash - 500</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerEleven" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionTwelve" class = "section">
+
+        <a id = "upgradeTwelveBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 2k" >Improved Auto Wash - 2k</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerTwelve" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionThirteen" class = "section">
+
+        <a id = "upgradeThirteenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 8k" >Improved Auto Wash - 8k</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerThirteen" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionFourteen" class = "section">
+
+        <a id = "upgradeFourteenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Half the auto wash interval - costs 20k" >Improved Auto Wash - 20k</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerFourteen" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionFifteen" class = "section">
+
+        <a id = "upgradeFifteenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn" data-position = "left" data-tooltip = "Learn how to dry the dishes - costs 1000" >Dry the dishes - 1000</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerFifteen" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionSixteen" class = "section">
+
+        <a id = "upgradeSixteenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn"  data-position = "left" data-tooltip = "Start automatically drying dishes, at maximum speed, because this upgrade is great - costs 5k" >Auto Dry - 5k</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerSixteen" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionSeventeen" class = "section">
+
+        <a id = "upgradeSeventeenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn"  data-position = "left" data-tooltip = "Your drying skill will grow 50% faster - costs 10k" >Drying Skill Growth Up - 10k</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerSeventeen" class = "divider"></div>
+
+      <div style = "display: none;" id = "upgradeSectionEighteen" class = "section">
+
+        <a id = "upgradeEighteenBtn" style = "width: 100%;" class = "tooltipped waves-effect waves-light btn"  data-position = "left" data-tooltip = "Your drying skill will grow 50% faster - costs 10k" >Drying Skill Growth Up - 100k</a>
+
+      </div>
+      <div style = "display: none;" id = "dividerEighteen" class = "divider"></div>
+
+    </div>
+
+  </div>
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="http://cdn.rawgit.com/erosson/swarm-numberformat/v0.4.0/dist/swarm-numberformat.min.js"></script>
+  <script type="text/javascript" src="game.js"></script>
+
+
+</body>
+</html>
