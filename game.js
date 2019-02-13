@@ -852,6 +852,9 @@ function loadSave(){
     player = Cookies.getJSON('game');
   }
 
+  player.actions.dryCooldown = false;
+  player.actions.washCooldown = false;
+
   if (player.unlocks.initialSkills == true){
     initialSkillsUnlock();
   }
@@ -869,11 +872,9 @@ function loadSave(){
     dryUnlock();
   }
   if(player.upgrades.additionalData.autoWashLoop != null){
-    player.actions.washCooldown = false;
     autoWash();
   }
   if(player.upgrades.additionalData.autoDryLoop != null){
-    player.actions.dryCooldown = false;
     autoDry();
   }
 
