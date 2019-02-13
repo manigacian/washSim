@@ -873,55 +873,72 @@ function loadSave(){
 function loadUpgrades(){
 
   if(player.upgrades.one == true){
-    removeUpgradeSection("One")
+    removeUpgradeSection("One");
+    addUpgradeSection("Two");
   }
   if(player.upgrades.two == true){
-    removeUpgradeSection("Two")
+    removeUpgradeSection("Two");
+    addUpgradeSection("Three");
+    addUpgradeSection("Four");
   }
   if(player.upgrades.three == true){
-    removeUpgradeSection("Three")
+    removeUpgradeSection("Three");
+    addUpgradeSection("Five");
   }
   if(player.upgrades.four == true){
-    removeUpgradeSection("Four")
+    removeUpgradeSection("Four");
+    addUpgradeSection("Six");
   }
   if(player.upgrades.five == true){
-    removeUpgradeSection("Five")
+    removeUpgradeSection("Five");
+    addUpgradeSection("Seven");
   }
   if(player.upgrades.six == true){
-    removeUpgradeSection("Six")
+    removeUpgradeSection("Six");
+    addUpgradeSection("Eight");
   }
   if(player.upgrades.seven == true){
-    removeUpgradeSection("Seven")
+    removeUpgradeSection("Seven");
+    addUpgradeSection("Nine");
   }
   if(player.upgrades.eight == true){
-    removeUpgradeSection("Eight")
+    removeUpgradeSection("Eight");
+    addUpgradeSection("Ten");
   }
   if(player.upgrades.nine == true){
-    removeUpgradeSection("Nine")
+    removeUpgradeSection("Nine");
+    addUpgradeSection("Eleven");
   }
   if(player.upgrades.ten == true){
-    removeUpgradeSection("Ten")
+    removeUpgradeSection("Ten");
+    addUpgradeSection("Fifteen");
   }
   if(player.upgrades.eleven == true){
-    removeUpgradeSection("Eleven")
+    removeUpgradeSection("Eleven");
+    addUpgradeSection("Twelve");
   }
   if(player.upgrades.twelve == true){
-    removeUpgradeSection("Twelve")
+    removeUpgradeSection("Twelve");
+    addUpgradeSection("Thirteen");
   }
   if(player.upgrades.thirteen == true){
-    removeUpgradeSection("Thirteen")
+    removeUpgradeSection("Thirteen");
+    addUpgradeSection("Fourteen");
   }
   if(player.upgrades.fourteen == true){
     removeUpgradeSection("Fourteen")
   }
   if(player.upgrades.fifteen == true){
-    removeUpgradeSection("Fifteen")
+    removeUpgradeSection("Fifteen");
+    addUpgradeSection("Sixteen");
   }
   if(player.upgrades.sixteen == true){
-    removeUpgradeSection("Sixteen")
+    removeUpgradeSection("Sixteen");
+    addUpgradeSection("Seventeen");
   }
   if(player.upgrades.seventeen == true){
-    removeUpgradeSection("Seventeen")
+    removeUpgradeSection("Seventeen");
+    addUpgradeSection("Eighteen");
   }
   if(player.upgrades.eighteen == true){
     removeUpgradeSection("Eighteen")
