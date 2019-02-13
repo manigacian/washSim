@@ -841,9 +841,30 @@ function save(){
 }
 
 function loadSave(){
-if (Cookies.getJSON('game') != null){
-  player = Cookies.getJSON('game');
-}
+  if (Cookies.getJSON('game') != null){
+    player = Cookies.getJSON('game');
+  }
 
+  if (player.unlocks.initialSkills == true){
+    initialSkillsUnlock();
+  }
+  if(player.unlocks.money == true){
+    moneyUnlock();
+  }
+  if(player.unlocks.initialUpgrades == true){
+    initialUpgradesUnlock();
+  }
+  if(player.unlocks.specialSkills == true){
+    specialSkillsUnlock();
+  }
+  if(player.unlocks.drying == true){
+    dryUnlock();
+  }
+  if(player.upgrades.additionalData.autoWashLoop != null){
+    autoWash();
+  }
+  if(player.upgrades.additionalData.autoDryLoop != null){
+    autoDry();
+  }
 
 }
