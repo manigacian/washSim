@@ -304,6 +304,13 @@ var gameLoop = setInterval(function(){
 
 }, 20);
 
+// save loop
+
+var saveLoop = setInterval(function(){
+  save();
+  console.log("Saved!")
+}, 10000)
+
 // core functions
 
 function Wash(){
