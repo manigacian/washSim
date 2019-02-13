@@ -853,6 +853,7 @@ function loadSave(){
   }
   if(player.unlocks.initialUpgrades == true){
     initialUpgradesUnlock();
+    loadUpgrades();
   }
   if(player.unlocks.specialSkills == true){
     specialSkillsUnlock();
@@ -865,6 +866,65 @@ function loadSave(){
   }
   if(player.upgrades.additionalData.autoDryLoop != null){
     autoDry();
+  }
+
+}
+
+function loadUpgrades(){
+
+  if(player.upgrades.one == true){
+    removeUpgradeSection("One")
+  }
+  if(player.upgrades.two == true){
+    removeUpgradeSection("Two")
+  }
+  if(player.upgrades.three == true){
+    removeUpgradeSection("Three")
+  }
+  if(player.upgrades.four == true){
+    removeUpgradeSection("Four")
+  }
+  if(player.upgrades.five == true){
+    removeUpgradeSection("Five")
+  }
+  if(player.upgrades.six == true){
+    removeUpgradeSection("Six")
+  }
+  if(player.upgrades.seven == true){
+    removeUpgradeSection("Seven")
+  }
+  if(player.upgrades.eight == true){
+    removeUpgradeSection("Eight")
+  }
+  if(player.upgrades.nine == true){
+    removeUpgradeSection("Nine")
+  }
+  if(player.upgrades.ten == true){
+    removeUpgradeSection("Ten")
+  }
+  if(player.upgrades.eleven == true){
+    removeUpgradeSection("Eleven")
+  }
+  if(player.upgrades.twelve == true){
+    removeUpgradeSection("Twelve")
+  }
+  if(player.upgrades.thirteen == true){
+    removeUpgradeSection("Thirteen")
+  }
+  if(player.upgrades.fourteen == true){
+    removeUpgradeSection("Fourteen")
+  }
+  if(player.upgrades.fifteen == true){
+    removeUpgradeSection("Fifteen")
+  }
+  if(player.upgrades.sixteen == true){
+    removeUpgradeSection("Sixteen")
+  }
+  if(player.upgrades.seventeen == true){
+    removeUpgradeSection("Seventeen")
+  }
+  if(player.upgrades.eighteen == true){
+    removeUpgradeSection("Eighteen")
   }
 
 }
