@@ -862,9 +862,11 @@ function loadSave(){
     dryUnlock();
   }
   if(player.upgrades.additionalData.autoWashLoop != null){
+    player.actions.washCooldown = false;
     autoWash();
   }
   if(player.upgrades.additionalData.autoDryLoop != null){
+    player.actions.dryCooldown = false;
     autoDry();
   }
 
