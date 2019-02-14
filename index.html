@@ -9,7 +9,7 @@
 
   <title>Dish-Washing Simulator</title>
 </head>
-<body onload = "loadSave();">
+<body id = "body" onload = "loadSave();">
   <div id = "rowDiv" class = "row">
     <div style = "display: none;" id = "skillsDiv" class = "col s4">
 
@@ -97,6 +97,8 @@
           <progress value = "5" max = "5" id = "dryProg" style = "position: absolute; top:90%; left: 50%;  transform: translate(-50%, -50%);"></progress>
 
         </div>
+
+        <a id = "settingsBtn" style = "display: none;" class = "waves-effect waves-light btn">Settings</a>
 
       </div>
 
@@ -238,6 +240,18 @@
 
     </div>
 
+  </div>
+
+  <div style = "text-align: center;" id="modalSettings" class="modal">
+    <div class="modal-content">
+      <h4>Settings</h4>
+      <a class = "waves-effect waves-light btn" id = "saveBtn">Save</a>
+      <br /><br />
+      <a class = "waves-effect waves-light btn" id = "darkModeBtn">Dark Mode</a>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
   </div>
 
   <div id="modalGeneralTutorial" class="modal">

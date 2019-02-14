@@ -165,10 +165,14 @@ var player = {
 
 }
 var drySalaryMulti = null;
+var darkModeOn = false;
 // event listeners
 //action btns
 document.getElementById("washBtn").addEventListener("click", Wash);
 document.getElementById("dryBtn").addEventListener("click", Dry);
+document.getElementById("settingsBtn").addEventListener("click", Settings);
+document.getElementById("saveBtn").addEventListener("click", save);
+document.getElementById("darkModeBtn").addEventListener("click", darkMode);
 //upgrade btns
 document.getElementById("upgradeOneBtn").addEventListener("click", upgradeOne);
 document.getElementById("upgradeTwoBtn").addEventListener("click", upgradeTwo);
@@ -550,6 +554,39 @@ function autoDry(){
 
 }
 
+// Misc/Settings functions
+
+function Settings(){
+
+  $('#modalSettings').modal('open');
+
+}
+
+function darkMode(){
+
+  if (darkModeOn == false){
+
+    document.getElementById("body").style = "background-color: #263238; color: white;";
+
+    $('.modal').css('background-color', '#263238');
+    $( ".modal-footer" ).css( "background-color", "#263238" );
+    $( ".modal-action" ).css( "color", "white" );
+
+    darkModeOn = true;
+
+  } else {
+
+    document.getElementById("body").style = "";
+    $('.modal').css('background-color', 'white');
+    $( ".modal-footer" ).css( "background-color", "white" );
+    $( ".modal-action" ).css( "color", "black" );
+
+    darkModeOn = false;
+
+  }
+
+}
+
 // unlock functions
 
 function initialSkillsUnlock(){
@@ -594,6 +631,8 @@ function initialUpgradesUnlock(){
   document.getElementById("washingDiv").classList.add("s6");
   document.getElementById("skillsDiv").classList.remove("s4");
   document.getElementById("skillsDiv").classList.add("s3");
+
+  document.getElementById("settingsBtn").style = "position: absolute; bottom: 3%; left: 5%; transform: translate(-50%, -50%);"
 
   player.unlocks.initialUpgrades = true;
 
