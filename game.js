@@ -3,7 +3,7 @@ var player = {
   skills: {
     GenWXP: 0,
     GenWIA: 1,
-    GenWMax: 5,
+    GenWMax: 2,
     GenWL: 0,
 
     PltWXP: 0,
@@ -24,7 +24,22 @@ var player = {
     GenDXP: 0,
     GenDIA: 1,
     GenDMax: 5,
-    GenDL: 0
+    GenDL: 0,
+
+    PltDXP: 0,
+    PltDIA: 1,
+    PltDMax: 5,
+    PltDL: 0,
+
+    CutDXP: 0,
+    CutDIA: 1,
+    CutDMax: 5,
+    CutDL: 0,
+
+    PotDXP: 0,
+    PotDIA: 1,
+    PotDMax: 5,
+    PotDL: 0
 
   },
 
@@ -34,7 +49,8 @@ var player = {
     money: false, // GenWL == 2
     initialUpgrades: false, // GenWL == 3
     specialSkills: false, // GenWL == 5
-    drying: false // upgrades.fifteen = true
+    drying: false, // upgrades.fifteen == true
+    dryingSpecial: false // GenDL == 5
 
   },
 
@@ -133,9 +149,22 @@ var player = {
     salaryCooldown: 5,
     salaryCooldownMax: 5
 
-  }
+  },
+
+  tutorial: {
+    general: true,
+    initialSkills: true,
+    money: true,
+    initialUpgrades: true,
+    specialSkills: true,
+    drying: true,
+    dryingSpecial: true
+  },
+
+  version: "0.1.1"
 
 }
+var drySalaryMulti = null;
 // event listeners
 //action btns
 document.getElementById("washBtn").addEventListener("click", Wash);
@@ -170,7 +199,7 @@ var gameLoop = setInterval(function(){
 
     player.skills.GenWXP = player.skills.GenWXP - player.skills.GenWMax;
     player.skills.GenWL++;
-    player.skills.GenWMax = Math.floor((player.skills.GenWL+1) ** 1.6) + 3;
+    player.skills.GenWMax = Math.floor((player.skills.GenWL+1) ** 1.6) + 1;
 
     player.actions.washCooldownTime = (Math.floor(player.actions.washCooldownTime * 0.9))+1;
 
@@ -196,6 +225,15 @@ var gameLoop = setInterval(function(){
     player.income.salary = player.income.salary + 0.5;
 
   }
+  if ((player.skills.PltDXP >= player.skills.PltDMax)&&(player.unlocks.dryingSpecial == true)){
+
+    player.skills.PltDXP = player.skills.PltDXP - player.skills.PltDMax;
+    player.skills.PltDL++;
+    player.skills.PltDMax = Math.floor((player.skills.PltDL+1) ** 1.7) + 3;
+
+    player.upgrades.additionalData.drySalaryMultiplier = player.upgrades.additionalData.drySalaryMultiplier + 0.5;
+
+  }
   // Cutlery Lvl Up
   if ((player.skills.CutWXP >= player.skills.CutWMax)&&(player.unlocks.specialSkills == true)){
 
@@ -206,6 +244,15 @@ var gameLoop = setInterval(function(){
     player.income.salary++;
 
   }
+  if ((player.skills.CutDXP >= player.skills.CutDMax)&&(player.unlocks.dryingSpecial == true)){
+
+    player.skills.CutDXP = player.skills.CutDXP - player.skills.CutDMax;
+    player.skills.CutDL++;
+    player.skills.CutDMax = Math.floor((player.skills.CutDL+1) ** 1.7) + 3;
+
+    player.upgrades.additionalData.drySalaryMultiplier = player.upgrades.additionalData.drySalaryMultiplier + 1;
+
+  }
   //Pot Lvl Up
   if ((player.skills.PotWXP >= player.skills.PotWMax)&&(player.unlocks.specialSkills == true)){
 
@@ -214,6 +261,15 @@ var gameLoop = setInterval(function(){
     player.skills.PotWMax = Math.floor((player.skills.PotWL+1) ** 1.6) + 3;
 
     player.income.salary = player.income.salary + 2;
+
+  }
+  if ((player.skills.PotDXP >= player.skills.PotDMax)&&(player.unlocks.dryingSpecial == true)){
+
+    player.skills.PotDXP = player.skills.PotDXP - player.skills.PotDMax;
+    player.skills.PotDL++;
+    player.skills.PotDMax = Math.floor((player.skills.PotDL+1) ** 1.7) + 3;
+
+    player.upgrades.additionalData.drySalaryMultiplier = player.upgrades.additionalData.drySalaryMultiplier + 2;
 
   }
 
@@ -249,6 +305,14 @@ var gameLoop = setInterval(function(){
 
   }
 
+  // drying special skills unlock
+
+  if ((player.unlocks.dryingSpecial == false)&&(player.skills.GenDL >= 5)){
+
+    dryingSpecialUnlock();
+
+  }
+
   //Salary Rewarding
   if (player.income.salaryCooldown == 0){
 
@@ -262,11 +326,17 @@ var gameLoop = setInterval(function(){
 
   // Money, Salary Updates
 
+  if (player.upgrades.additionalData.drySalaryMultiplier < 10){
+    drySalaryMulti = player.upgrades.additionalData.drySalaryMultiplier.toFixed(1);
+  } else {
+    drySalaryMulti = numberformat.format(player.upgrades.additionalData.drySalaryMultiplier);
+  }
+
   document.getElementById("moneyLbl").innerHTML = "Money: " + numberformat.format(player.currency.money);
 
   if (player.unlocks.drying == true){
 
-    document.getElementById("salaryLbl").innerHTML = "Salary: " + numberformat.format(player.income.salary) + " * " + (player.upgrades.additionalData.drySalaryMultiplier).toFixed(1);
+    document.getElementById("salaryLbl").innerHTML = "Salary: " + numberformat.format(player.income.salary) + " * " + drySalaryMulti;
 
   } else {
 
@@ -299,6 +369,18 @@ var gameLoop = setInterval(function(){
   document.getElementById("potWashProgress").value = player.skills.PotWXP;
   document.getElementById("potWashProgress").max = player.skills.PotWMax;
   document.getElementById("potWashLbl").innerHTML = "Pot Washing Skill: " + player.skills.PotWL;
+
+  document.getElementById("plateDryProgress").value = player.skills.PltDXP;
+  document.getElementById("plateDryProgress").max = player.skills.PltDMax;
+  document.getElementById("plateDryLbl").innerHTML = "Plate Drying Skill: " + player.skills.PltDL;
+
+  document.getElementById("cutleryDryProgress").value = player.skills.CutDXP;
+  document.getElementById("cutleryDryProgress").max = player.skills.CutDMax;
+  document.getElementById("cutleryDryLbl").innerHTML = "Cutlery Drying Skill: " + player.skills.CutDL;
+
+  document.getElementById("potDryProgress").value = player.skills.PotDXP;
+  document.getElementById("potDryProgress").max = player.skills.PotDMax;
+  document.getElementById("potDryLbl").innerHTML = "Pot Drying Skill: " + player.skills.PotDL;
 
   console.log("Looped");
 
@@ -367,6 +449,13 @@ function Wash(){
 
   }
 
+  if (player.tutorial.general == true){
+
+    $('#modalGeneralTutorial').modal('open');
+    player.tutorial.general = false;
+
+  }
+
 }
 
 function Dry(){
@@ -377,7 +466,25 @@ function Dry(){
 
     player.skills.GenDXP = player.skills.GenDXP + (player.skills.GenDIA * player.upgrades.additionalData.dryMultiplier);
 
-    // TO DO SPECIAL DRY SKILLS UNLOCK
+    if(player.unlocks.dryingSpecial == true){
+
+      var rnd = Math.floor(Math.random() * 10);
+
+      if (rnd < 1){
+
+        player.skills.PotDXP = player.skills.PotDXP + player.skills.PotDIA;
+
+      } else if (rnd < 3){
+
+        player.skills.CutDXP = player.skills.CutDXP + player.skills.CutDIA;
+
+      } else {
+
+        player.skills.PltDXP = player.skills.PltDXP + player.skills.PltDIA;
+
+      }
+
+    }
 
     document.getElementById("dryProg").value = 0;
 
@@ -453,6 +560,14 @@ function initialSkillsUnlock(){
 
   player.unlocks.initialSkills = true;
 
+  if (player.tutorial.initialSkills == true){
+
+    $('#modalInitialSkills').modal('open');
+
+    player.tutorial.initialSkills = false;
+
+  }
+
 }
 
 function moneyUnlock(){
@@ -461,6 +576,14 @@ function moneyUnlock(){
   document.getElementById("salaryLbl").style = "position: absolute; top: 5%; left: 50%; transform: translate(-50%, -50%);";
 
   player.unlocks.money = true;
+
+  if (player.tutorial.money == true){
+
+    $('#modalMoney').modal('open');
+
+    player.tutorial.money = true;
+
+  }
 
 }
 
@@ -474,6 +597,14 @@ function initialUpgradesUnlock(){
 
   player.unlocks.initialUpgrades = true;
 
+  if (player.tutorial.initialUpgrades == true){
+
+    $('#modalUpgrades').modal('open');
+
+    player.tutorial.initialUpgrades = false;
+
+  }
+
 }
 
 function specialSkillsUnlock(){
@@ -481,6 +612,14 @@ function specialSkillsUnlock(){
   document.getElementById("specialWashSkillSection").style = "";
 
   player.unlocks.specialSkills = true;
+
+  if (player.tutorial.specialSkills == true){
+
+    $('#modalSpecialSkills').modal('open');
+
+    player.tutorial.specialSkills = false;
+
+  }
 
 }
 
@@ -491,6 +630,30 @@ function dryUnlock(){
   document.getElementById("genDryDiv").style = "";
 
   player.unlocks.drying = true;
+
+  if (player.tutorial.drying == true){
+
+    $('#modalDrying').modal('open');
+
+    player.tutorial.drying = false;
+
+  }
+
+}
+
+function dryingSpecialUnlock(){
+
+  document.getElementById("specialDrySkillSection").style = "";
+
+  player.unlocks.dryingSpecial = true;
+
+  if (player.tutorial.dryingSpecial == true){
+
+    $('#modalDryingSpecial').modal('open');
+
+    player.tutorial.dryingSpecial = false;
+
+  }
 
 }
 
@@ -871,12 +1034,17 @@ function loadSave(){
   if(player.unlocks.drying == true){
     dryUnlock();
   }
+  if(player.unlocks.dryingSpecial == true){
+    dryingSpecialUnlock();
+  }
   if(player.upgrades.additionalData.autoWashLoop != null){
     autoWash();
   }
   if(player.upgrades.additionalData.autoDryLoop != null){
     autoDry();
   }
+
+  fixSave();
 
 }
 
@@ -955,3 +1123,42 @@ function loadUpgrades(){
   }
 
 }
+
+function fixSave(){
+
+  if (player.version != "0.1.1"){
+
+    player.skills.PltDXP = 0;
+    player.skills.PltDIA = 1;
+    player.skills.PltDMax = 5;
+    player.skills.PltDL = 0;
+
+    player.skills.CutDXP = 0;
+    player.skills.CutDIA = 1;
+    player.skills.CutDMax = 5;
+    player.skills.CutDL = 0;
+
+    player.skills.PotDXP = 0;
+    player.skills.PotDIA = 1;
+    player.skills.PotDMax = 5;
+    player.skills.PotDL = 0;
+
+    player.unlocks.dryingSpecial = false;
+    player.tutorial = {
+      general: true,
+      initialSkills: true,
+      money: true,
+      initialUpgrades: true,
+      specialSkills: true,
+      drying: true,
+      dryingSpecial: true
+    }
+
+  }
+
+}
+
+$(document).ready(function(){
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });

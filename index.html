@@ -41,15 +41,36 @@
         <p style = "display: inline; width: 40%;" id = "plateWashLbl">Plate Washing Skill: 0</p>
         <progress id = "plateWashProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you wash has a 7/10 chance of being a plate. Each level in this skill increases your Salary by 0.5"></progress>
 
-        <br /> <br />
+        <br />
 
         <p style = "display: inline; width: 40%;" id = "cutleryWashLbl">Cutlery Washing Skill: 0</p>
         <progress id = "cutleryWashProgress" class = "tooltipped" style = "display: inline; width: 40%; float: right;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you wash has a 2/10 chance of being cutlery. Each level in this skill increases your Salary by 1"></progress>
 
-        <br /> <br />
+        <br />
 
         <p style = "display: inline; width: 40%;" id = "potWashLbl">Pot Washing Skill: 0</p>
         <progress id = "potWashProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you wash has a 1/10 chance of being a pot. Each level in this skill increases your Salary by 2"></progress>
+
+        <br />
+
+        <div style = "display: none;" id = "specialDrySkillSection" class = "section">
+
+          <p style = "display: inline; width: 40%;" id = "plateDryLbl">Plate Drying Skill: 0</p>
+          <progress id = "plateDryProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you dry has a 7/10 chance of being a plate. Each level in this skill increases your salary multiplier by 0.5"></progress>
+
+          <br />
+
+          <p style = "display: inline; width: 40%;" id = "cutleryDryLbl">Cutlery Drying Skill: 0</p>
+          <progress id = "cutleryDryProgress" class = "tooltipped" style = "display: inline; width: 40%; float: right;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you dry has a 2/10 chance of being cutlery. Each level in this skill increases your salary multiplier by 1"></progress>
+
+          <br />
+
+          <p style = "display: inline; width: 40%;" id = "potDryLbl">Pot Drying Skill: 0</p>
+          <progress id = "potDryProgress" class = "tooltipped" style = "display: inline; float: right; width: 40%;" value = "0" max = "5" data-position = "right" data-tooltip = "Each item you dry has a 1/10 chance of being a pot. Each level in this skill increases your salary multiplier by 2"></progress>
+
+          <br />
+
+        </div>
 
       </div>
       <div class="divider"></div>
@@ -218,6 +239,77 @@
     </div>
 
   </div>
+
+  <div id="modalGeneralTutorial" class="modal">
+    <div class="modal-content">
+      <h4>Welcome!</h4>
+      <p>Welcome to Washing Simulator! Where we simulate washing some dishes. <br /> Wash 1 more dish to unlock your first skill! See you in a second!</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
+  <div id="modalInitialSkills" class="modal">
+    <div class="modal-content">
+      <h4>Well done!</h4>
+      <p>You have reached General Washing Level 1!<br /> Each level of general washing lowers the cooldown of the wash button by 10%. Hover over the progress bar of the skill for more information! <br />Ill be back when you reach General Washing Level Two</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
+  <div id="modalMoney" class="modal">
+    <div class="modal-content">
+      <h4>Well done!</h4>
+      <p>You have reached General Washing Level 2!<br /> You recieve your salary as money every 5 dishes you wash! This can be lowered later<br />Ill be back when you reach General Washing Level Three!</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
+  <div id="modalUpgrades" class="modal">
+    <div class="modal-content">
+      <h4>Well done!</h4>
+      <p>You have reached General Washing Level 3!<br /> You can buy upgrades with your money! Hover over the upgrades for tooltips with more information!<br />Ill be back when you reach General Washing Level Five!</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
+  <div id="modalSpecialSkills" class="modal">
+    <div class="modal-content">
+      <h4>Well done!</h4>
+      <p>You have reached General Washing Level 5!<br /> You have unlocked 3 more skills! Each item you wash has a chance to be a plate, pot or item of cutlery! Each level in these skills give varying bonuses to salary! Hoverover their progress bars for more information!<br />That's all for now, have fun!</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
+  <div id="modalDrying" class="modal">
+    <div class="modal-content">
+      <h4>Well done!</h4>
+      <p>You've unlocked Drying!<br /> You can now dry dishes! Each level in the general drying skill reduces the cooldown by 10% and adds a 0.1x boost to your Salary<br />I'll be back when you hit General Drying Level 5!</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
+  <div id="modalDryingSpecial" class="modal">
+    <div class="modal-content">
+      <h4>Well done!</h4>
+      <p>You've unlocked extra drying skills!<br /> Same as for washing, each dish has a chance to be a plate, pot or piece of cutlery, and give varying increases to salary multiplier each level! Hoverover their prorgess bars for more information!<br />This is the last *major* unlock for this version! Have Fun!</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+  </div>
+
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
